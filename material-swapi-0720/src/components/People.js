@@ -18,6 +18,7 @@ class People extends Component {
            isCheckedU: true
         }
     }
+    //git checkout
 
     loadPeople = () => {
         axios.get('https://swapi.dev/api/people/').then((res) => {this.setState({peopleArr: res.data.results, startArr: res.data.results})
