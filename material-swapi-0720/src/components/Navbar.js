@@ -33,12 +33,16 @@ const Navbar = () => {
     return <Router>
         <div className="navbarContainer">
         <nav className="navbar">
-        <ul>
+        <ul className="uList">
             <li>
-                <Link to="/people">People</Link>
+                <div className="linkContainer">
+                <Link className="link" to="/people">People</Link>
+                </div>
             </li>
             <li>
-                <Link to="/planets">Planets</Link>
+                <div className="linkContainer">
+                <Link className="link" to="/planets">Planets</Link>
+                </div>
             </li>
         </ul>
         

@@ -52,22 +52,37 @@ class People extends Component {
         console.log('tmpArr', tmpArr)
     }
 
-    checkboxChangeHandlerM = () => {
-        this.setState({isCheckedM: !this.state.isCheckedM})
-        console.log('checked',this.state.isCheckedM)
+    checkboxChangeHandlerM = (e) => {
+        this.setState({isCheckedM: e.target.checked})
+
+        // // const tmpCheck = this.state.isCheckedM
+        // this.setState({isCheckedM: !this.state.isCheckedM})
+        // console.log('checked',this.state.isCheckedM)
 
         const tmpArr = [];
 
+        // if(this.state.isCheckedM) {
+        //     this.state.peopleArr.filter((item) => 
+        //     {if(item.gender !== 'male') {
+        //         tmpArr.push(item);
+                
+        //     }})
+        // } else {
+        //     tmpArr = this.state.peopleArr;
+        // }
+
+        
         if(this.state.isCheckedM) {
-            this.state.peopleArr.filter((item) => 
-            {if(item.gender !== 'male') {
-                tmpArr.push(item);
-                this.setState({peopleArr: tmpArr})
-            }})
-        } else {
-            this.setState({peopleArr: this.state.startArr})
+            this.state.peopleArr.filter((item)=> {
+                if(item.gender == 'male') {
+                    tmpArr.push(item)
+                }
+            }
+            )
         }
-        // console.log('peoplArr',tmpArr)
+        
+        this.setState({peopleArr: tmpArr})
+        // // console.log('peoplArr',tmpArr)
     }
 
     checkboxChangeHandlerF = () => {
@@ -89,9 +104,9 @@ class People extends Component {
     }
 
     checkboxChangeHandlerU = () => {
+        
         this.setState({isCheckedU: !this.state.isCheckedU})
         console.log('checked',this.state.isCheckedU)
-
         const tmpArr = [];
 
         if(this.state.isCheckedU) {
@@ -116,7 +131,6 @@ class People extends Component {
             {
                 this.state.peopleArr.map((item, index) => 
                 (<Chip
-                    className="chip"
                     key={index}
                     label={item.name}
                     color={
