@@ -1,0 +1,32 @@
+* {
+  margin: 0;
+}
+
+.navbar {
+  background-color: aliceblue;
+  width: 200px;
+  height: 100vh;
+}
+
+.navbarContainer {
+  display: flex;
+}
+
+.chipContainer {
+  /* display: flex; */
+  width: 600px;
+  height: 200px;
+  margin: 20px;
+  
+}
+
+.chipContainer > * {
+  margin-left: 20px;
+}
+
+.checkboxContainer {
+  margin-left: 20px;
+  display: flex;
+  align-items: center;
+}
+
