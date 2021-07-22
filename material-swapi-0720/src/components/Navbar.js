@@ -9,7 +9,7 @@ import {
 import People from './People';
 import Planets from './Planets';
 
-import { FormControlLabel } from "@material-ui/core";
+// import { FormControlLabel } from "@material-ui/core";
 
 // const CheckboxFn = () => {
 //     const [checked, setChecked] = useState(true)

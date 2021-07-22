@@ -1,10 +1,13 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import Chip from '@material-ui/core/Chip';
-import { Button } from '@material-ui/core/';
 import Checkbox from '@material-ui/core/Checkbox';
+import CircularProgress from '@material-ui/core/CircularProgress';
 
 
+let isCheckedM = true;
+let isCheckedF = true;
+let isCheckedU = true;
 
 class People extends Component {
     constructor() {
@@ -12,16 +15,13 @@ class People extends Component {
         this.state = {
             startArr: [],
            peopleArr: [],
-           checked: true,
-           isCheckedM: true,
-           isCheckedF: true,
-           isCheckedU: true
+           loading: true,
         }
     }
     //git checkout
 
     loadPeople = () => {
-        axios.get('https://swapi.dev/api/people/').then((res) => {this.setState({peopleArr: res.data.results, startArr: res.data.results})
+        axios.get('https://swapi.dev/api/people/').then((res) => {this.setState({peopleArr: res.data.results, startArr: res.data.results, loading: false})
         console.log(res.data.results)
     })
     }
@@ -54,12 +54,12 @@ class People extends Component {
     }
 
     checkboxChangeHandlerM = () => {
-        this.setState({isCheckedM: !this.state.isCheckedM})
-        console.log('checked',this.state.isCheckedM)
+        isCheckedM = !isCheckedM
+        console.log('checked',isCheckedM)
 
         const tmpArr = [];
 
-        if(this.state.isCheckedM) {
+        if(!isCheckedM) {
             this.state.peopleArr.filter((item) => 
             {if(item.gender !== 'male') {
                 tmpArr.push(item);
@@ -113,8 +113,10 @@ class People extends Component {
 
         console.log(this.state)
 
-        return <div><div className="chipContainer">
-            {
+        return <div>
+            <div className="chipContainer">
+             {this.state.loading && <CircularProgress />}
+             {
                 this.state.peopleArr.map((item, index) => 
                 (<Chip
                     className="chip"
@@ -130,23 +132,24 @@ class People extends Component {
             </div>
         <div className="checkboxContainer">
         <Checkbox
-            checked={this.state.isCheckedM}
+            checked={isCheckedM}
             color='primary'
             onChange={this.checkboxChangeHandlerM}
         />
         <div>Male</div>
         <Checkbox
-            checked={this.state.isCheckedF}
+            checked={isCheckedF}
             color='secondary'
             onChange={this.checkboxChangeHandlerF}
         />
         <div>Female</div>
         <Checkbox
-            checked={this.state.isCheckedU}
+            checked={isCheckedU}
             color='default'
             onChange={this.checkboxChangeHandlerU}
         />
         <div>Unknown</div>
+        
     </div>
     </div>
         
