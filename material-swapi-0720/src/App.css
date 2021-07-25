@@ -95,4 +95,6 @@
 
 .planetFilters {
   margin-top: 50px;
+  position: absolute;
+  top: 700px;
 }

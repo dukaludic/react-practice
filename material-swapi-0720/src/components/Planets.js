@@ -1,9 +1,26 @@
 import { Component } from "react";
 import axios from "axios";
-import PlanetItem from "./PlanetItem";
+// import PlanetItem from "./PlanetItem";
 import CircularProgress from "@material-ui/core/CircularProgress";
 import Checkbox from "@material-ui/core/Checkbox";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
+
+// import { makeStyles } from "@material-ui/core/styles";
+import Table from "@material-ui/core/Table";
+import TableBody from "@material-ui/core/TableBody";
+import TableCell from "@material-ui/core/TableCell";
+import TableContainer from "@material-ui/core/TableContainer";
+import TableHead from "@material-ui/core/TableHead";
+import TableRow from "@material-ui/core/TableRow";
+import Paper from "@material-ui/core/Paper";
+
+// const useStyles = makeStyles({
+//   table: {
+//     minWidth: 650,
+//   },
+// });
+
+// const classes = useStyles();
 
 // const planetItem = (item) => {
 //     return <div style={{display: 'flex'}}>
@@ -12,6 +29,69 @@ import FormControlLabel from "@material-ui/core/FormControlLabel";
 //     </div>
 
 // }
+
+const mySort = (arr, bool) => {
+  if (bool) {
+    //izbaci unknown na kraj
+    let x = 1;
+    for (let i = arr.length - 1; i >= 0; i--) {
+      // console.log(arr.length);
+      // let max = arr.length - x;
+      if (arr[i].population === "unknown") {
+        let tmp = arr[arr.length - x];
+        arr[arr.length - x] = arr[i];
+        arr[i] = tmp;
+        x++;
+      }
+    }
+    //sortiraj
+    for (let i = 0; i < arr.length; i++) {
+      let min = i;
+      for (let j = i + 1; j < arr.length; j++) {
+        //da unknown ne bude uvek na kraju ubaciti u uslov
+        //          arr[j].population === "unknown" ||
+        if (parseInt(arr[j].population) < parseInt(arr[min].population)) {
+          // console.log("inside", arr[j].population);
+          min = j;
+        }
+      }
+      if (min != i) {
+        let tmp = arr[i];
+        arr[i] = arr[min];
+        arr[min] = tmp;
+      }
+    }
+  } else {
+    //izbaci unknown na kraj
+    let x = 1;
+    for (let i = arr.length - 1; i >= 0; i--) {
+      // console.log(arr.length);
+      // let max = arr.length - x;
+      if (arr[i].population === "unknown") {
+        let tmp = arr[arr.length - x];
+        arr[arr.length - x] = arr[i];
+        arr[i] = tmp;
+        x++;
+      }
+    }
+    for (let i = 0; i < arr.length; i++) {
+      let min = i;
+      for (let j = i + 1; j < arr.length; j++) {
+        if (parseInt(arr[j].population) > parseInt(arr[min].population)) {
+          // console.log("inside", arr[j].population);
+          min = j;
+        }
+      }
+      if (min != i) {
+        let tmp = arr[i];
+        arr[i] = arr[min];
+        arr[min] = tmp;
+      }
+    }
+  }
+
+  return arr;
+};
 
 let sortBool = false;
 let populationBool = false;
@@ -72,20 +152,24 @@ class Planets extends Component {
   populationSort = () => {
     populationBool = !populationBool;
     //da sortira ascending ili descending
+    const tmpArr = this.state.currentArr;
 
-    if (populationBool === true) {
-      const tmpArr = this.state.currentArr;
-      tmpArr.sort((a, b) =>
-        parseInt(a.population) > parseInt(b.population) ? -1 : 1
-      );
-      this.setState({ currentArr: tmpArr });
-    } else {
-      const tmpArr = this.state.currentArr;
-      tmpArr.sort((a, b) =>
-        parseInt(a.population) > parseInt(b.population) ? 1 : -1
-      );
-      this.setState({ currentArr: tmpArr });
-    }
+    // console.log("AFTER SORT", mySort(tmpArr));
+    mySort(tmpArr, populationBool);
+    this.setState({ currentArr: tmpArr });
+
+    // console.log(mySort([23, 10, 5, 2, "unknown", 1], true));
+    // mora da bude objekat za sort
+
+    // if (populationBool === true) {
+    //   //   tmpArr.mySort();
+    //   this.setState({ currentArr: tmpArr });
+    // } else {
+    //   tmpArr.sort((a, b) =>
+    //     parseInt(a.population) > parseInt(b.population) ? 1 : -1
+    //   );
+    //   this.setState({ currentArr: tmpArr });
+    // }
 
     this.setState({
       hlPlanet: false,
@@ -123,8 +207,30 @@ class Planets extends Component {
   aridChangeHandler = (climate) => {
     const tmpArr = [];
     console.log(climate);
+    // const checkbox = true;
+
+    // switch (climate) {
+    //   case "arid":
+    //     checkbox = this.state.aridCheckbox;
+    //     break;
+    //   case "temperate":
+    //     checkbox = this.state.temperateCheckbox;
+    //     break;
+    //   case "tropical":
+    //     checkbox = this.state.tropicalCheckbox;
+    //     break;
+    //   case "frozen":
+    //     checkbox = this.state.frozenCheckbox;
+    //     break;
+    //   case "murky":
+    //     checkbox = this.state.murkyCheckbox;
+    //     break;
+    //   default:
+    // }
 
     // console.log(eval(`${climate}Checkbox`));
+
+    // kako da setujem state na aridCheckbox dinamicki?
 
     if (this.state.aridCheckbox) {
       this.setState({ aridCheckbox: false }, () =>
@@ -132,7 +238,7 @@ class Planets extends Component {
       );
 
       this.state.currentArr.filter((item) => {
-        if (item.climate !== "arid") {
+        if (item.climate !== climate) {
           tmpArr.push(item);
         }
         this.setState({ currentArr: tmpArr });
@@ -143,7 +249,7 @@ class Planets extends Component {
       );
 
       this.state.planetsArr.filter((item) => {
-        if (item.climate === "arid") {
+        if (item.climate === climate) {
           tmpArr.push(item);
         }
         this.setState({ currentArr: [...this.state.currentArr, ...tmpArr] });
@@ -271,7 +377,7 @@ class Planets extends Component {
     return (
       <div>
         <div className="planetTable">
-          {!this.state.loading && (
+          {/* {!this.state.loading && (
             <div className="planetItemTitle">
               <div
                 onClick={this.nameSort}
@@ -304,7 +410,60 @@ class Planets extends Component {
               population={item.population}
               orbital_period={item.orbital_period}
             />
-          ))}
+          ))} */}
+
+          <TableContainer style={{ display: "block" }} component={Paper}>
+            <Table aria-label="simple table">
+              <TableHead>
+                <TableRow>
+                  <TableCell
+                    onClick={this.nameSort}
+                    style={{
+                      fontWeight: "700",
+                      cursor: "pointer",
+                      color: planetHl,
+                    }}
+                  >
+                    Planet
+                  </TableCell>
+                  <TableCell
+                    onClick={this.populationSort}
+                    style={{
+                      fontWeight: "700",
+                      cursor: "pointer",
+                      color: populationHl,
+                    }}
+                    align="right"
+                  >
+                    Population
+                  </TableCell>
+                  <TableCell
+                    onClick={this.orbitalPeriodSort}
+                    style={{
+                      fontWeight: "700",
+                      cursor: "pointer",
+                      color: orbitalPeriodHl,
+                    }}
+                    align="right"
+                  >
+                    Orbital Period
+                  </TableCell>
+                </TableRow>
+              </TableHead>
+              <TableBody>
+                {this.state.currentArr.map((item) => (
+                  <TableRow key={item.name}>
+                    <TableCell component="th" scope="row">
+                      {item.name}
+                    </TableCell>
+                    <TableCell align="right">{item.population}</TableCell>
+                    <TableCell align="right">{item.orbital_period}</TableCell>
+                  </TableRow>
+                ))}
+              </TableBody>
+            </Table>
+          </TableContainer>
+          {this.state.loading && <CircularProgress />}
         </div>
         <div className="planetFilters">
           <h3>Filters</h3>
