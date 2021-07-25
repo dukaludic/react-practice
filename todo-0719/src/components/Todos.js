@@ -43,6 +43,107 @@ class Todos extends Component {
     //   console.log(item);
     // }
 
+    // const users = [
+    //   {
+    //     name: "luka",
+    //     age: 28,
+    //     email: "123test",
+    //     licence: true,
+    //     pet: true,
+    //     km: 2700,
+    //   },
+    //   {
+    //     name: "marko",
+    //     age: 15,
+    //     email: "123test",
+    //     licence: false,
+    //     pet: true,
+    //     km: 0,
+    //   },
+    //   {
+    //     name: "marija",
+    //     age: 25,
+    //     email: "123test",
+    //     licence: true,
+    //     pet: true,
+    //     km: 17200,
+    //   },
+    //   {
+    //     name: "jovan",
+    //     age: 12,
+    //     email: "123test",
+    //     licence: false,
+    //     pet: false,
+    //     km: 0,
+    //   },
+    //   {
+    //     name: "milos",
+    //     age: 28,
+    //     email: "123test",
+    //     licence: true,
+    //     pet: true,
+    //     km: 18000,
+    //   },
+    // ];
+
+    // Sortiraj na one koji imaju i nemaju maill
+    // Sortiraj oba na one koji imaju preko 18 i nemaju preko 18
+    // Sortiraj sva 4 ako imaju i nemaju vozacku
+
+    // const saVozackom = [];
+    // const bezVozacke = [];
+    // const bezEmaila = [];
+    // const saPetomBezMaila = [];
+    // const bezPetaIspod18 = [];
+    // const bez18 = [];
+
+    // // bez maila sa ljubimcem i da su ispod 18 sa ljubimcem
+
+    // // Vezbaj if else sort
+
+    // // Instaliraj material ui i instaliraj sidebar, i neke komponente, chips, izlistam arraye koje napravim
+    // // Array + filter + material.ui // moze i jsonplaceholder.. swapi. Koristi slike karaktera ili svemirskih brodova
+
+    // users.filter((item) => {
+    //   if (item.email.length > 0) {
+    //     console.log("svi sa mailom", item.name);
+    //     if (item.age >= 18) {
+    //       console.log("svi sa 18", item.name);
+    //       if (item.licence) {
+    //         saVozackom.push(item);
+    //       }
+    //     } else {
+    //       bez18.push(item);
+    //       console.log(`${item.name} nema 18godina`);
+    //       if (item.pet) {
+    //         bezPetaIspod18.push(item);
+    //       }
+    //       bezVozacke.push(item);
+    //     }
+    //   } else {
+    //     bezEmaila.push(item);
+    //     if (item.pet) {
+    //       saPetomBezMaila.push(item);
+    //     }
+    //   }
+    // });
+
+    // console.log("BEZ 18", bez18);
+
+    // users.filter((item) => {
+    //   if (item.km > 10000) {
+    //     console.log(item.name, "preko 10000");
+    //   } else {
+    //     console.error(item.name, "ispod 10000");
+    //   }
+    // });
+
+    // console.log("sa vozackom", saVozackom);
+    // console.log("bez vozacke", bezVozacke);
+    // console.log("bez emaila", bezEmaila);
+    // console.log("saPetomBezMailaa", saPetomBezMaila);
+    // console.log("bezPetaIspod18", bezPetaIspod18);
+
     const users = [
       {
         name: "luka",
@@ -71,7 +172,7 @@ class Todos extends Component {
       {
         name: "jovan",
         age: 12,
-        email: "123test",
+        email: "",
         licence: false,
         pet: false,
         km: 0,
@@ -79,70 +180,113 @@ class Todos extends Component {
       {
         name: "milos",
         age: 28,
-        email: "123test",
+        email: "",
         licence: true,
         pet: true,
         km: 18000,
       },
     ];
 
-    // Sortiraj na one koji imaju i nemaju maill
-    // Sortiraj oba na one koji imaju preko 18 i nemaju preko 18
-    // Sortiraj sva 4 ako imaju i nemaju vozacku
+    // sa predjenih 3000km i bez pa onda na sa emailom i ispod 18 i preko 18 sa vozackom
 
-    const saVozackom = [];
-    const bezVozacke = [];
-    const bezEmaila = [];
-    const saPetomBezMaila = [];
-    const bezPetaIspod18 = [];
-    const bez18 = [];
+    // ---1
 
-    // bez maila sa ljubimcem i da su ispod 18 sa ljubimcem
+    // const saPredjenih = [];
+    // const bezPredjenih = [];
+    // const saEmailomMaloletni = [];
+    // const saVozackomPunoletni = [];
 
-    // Vezbaj if else sort
+    // ---2
 
-    // Instaliraj material ui i instaliraj sidebar, i neke komponente, chips, izlistam arraye koje napravim
-    // Array + filter + material.ui // moze i jsonplaceholder.. swapi. Koristi slike karaktera ili svemirskih brodova
+    // const saEmailom = [];
+    // const bezEmaila = [];
+    // const saPetomPunoletni = [];
 
-    users.filter((item) => {
-      if (item.email.length > 0) {
-        console.log("svi sa mailom", item.name);
-        if (item.age >= 18) {
-          console.log("svi sa 18", item.name);
-          if (item.licence) {
-            saVozackom.push(item);
-          }
-        } else {
-          bez18.push(item);
-          console.log(`${item.name} nema 18godina`);
-          if (item.pet) {
-            bezPetaIspod18.push(item);
-          }
-          bezVozacke.push(item);
-        }
-      } else {
-        bezEmaila.push(item);
-        if (item.pet) {
-          saPetomBezMaila.push(item);
-        }
-      }
-    });
-
-    console.log("BEZ 18", bez18);
+    // ---3
+    const saPetom = [];
+    const bezPeta = [];
+    const saPredjenihPunoletni = [];
+    const saEmailomMaloletni = [];
 
     users.filter((item) => {
-      if (item.km > 10000) {
-        console.log(item.name, "preko 10000");
+      // if (item.km > 3000) {
+      //   saPredjenih.push(item);
+      //   if (item.age < 18) {
+      //     if (item.email.length > 0) {
+      //       saEmailomMaloletni.push(item);
+      //     }
+      //   } else {
+      //     if (item.licence) {
+      //       saVozackomPunoletni.push(item);
+      //     }
+      //   }
+      // } else {
+      //   bezPredjenih.push(item);
+      //   if (item.licence) {
+      //     saVozackomPunoletni.push(item);
+      //   }
+      // }
+      // --- 1
+      // if (item.age > 18) {
+      //   if (item.licence) {
+      //     saVozackomPunoletni.push(item);
+      //     if (item.km > 3000) {
+      //       saPredjenih.push(item);
+      //     } else {
+      //       bezPredjenih.push(item);
+      //     }
+      //   }
+      // } else {
+      //   if (item.email.length > 0) {
+      //     saEmailomMaloletni.push(item);
+      //   }
+      //   if (item.km < 3000) {
+      //     bezPredjenih.push(item);
+      //   }
+      // }
+      // ----2
+      // saEmailom i bezEmaila i tu izdvoj saLjubimcemPunoletni
+      // if (item.email.length > 0) {
+      //   saEmailom.push(item);
+      //   if (item.age > 18 && item.pet) {
+      //     saPetomPunoletni.push(item);
+      //   }
+      // } else {
+      //   bezEmaila.push(item);
+      //   if (item.age > 18 && item.pet) {
+      //     saPetomPunoletni.push(item);
+      //   }
+      // }
+
+      // ---3
+      if (item.pet === true) {
+        saPetom.push(item);
+        if (item.km > 3000 && item.age > 18) {
+          saPredjenihPunoletni.push(item);
+        }
+        if (item.email.length > 0 && item.age < 18) {
+          saEmailomMaloletni.push(item);
+        }
       } else {
-        console.error(item.name, "ispod 10000");
+        bezPeta.push(item);
       }
     });
+    // ---1
+    // console.log("saPredjenih", saPredjenih);
+    // console.log("bezPredjenih", bezPredjenih);
+    // console.log("saEmailomMaloletni", saEmailomMaloletni);
+    // console.log("saVozackomPunoletni", saVozackomPunoletni);
 
-    console.log("sa vozackom", saVozackom);
-    console.log("bez vozacke", bezVozacke);
-    console.log("bez emaila", bezEmaila);
-    console.log("saPetomBezMailaa", saPetomBezMaila);
-    console.log("bezPetaIspod18", bezPetaIspod18);
+    //---2
+    // console.log("saEmailom", saEmailom);
+    // console.log("bezEmaila", bezEmaila);
+    // console.log("saPetomPunoletni", saPetomPunoletni);
+
+    // ---3
+    console.log("saPetom", saPetom);
+    console.log("bezPeta", bezPeta);
+    console.log("saPredjenihPunoletni", saPredjenihPunoletni);
+    console.log("saEmailomMaloletni", saEmailomMaloletni);
   }
 
   deleteHandler = (id) => {
