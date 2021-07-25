@@ -68,7 +68,9 @@ class People extends Component {
         } else {
             this.setState({peopleArr: this.state.startArr})
         }
-        // console.log('peoplArr',tmpArr)
+        
+        this.setState({peopleArr: tmpArr})
+        // // console.log('peoplArr',tmpArr)
     }
 
     checkboxChangeHandlerF = () => {
@@ -90,9 +92,9 @@ class People extends Component {
     }
 
     checkboxChangeHandlerU = () => {
+        
         this.setState({isCheckedU: !this.state.isCheckedU})
         console.log('checked',this.state.isCheckedU)
-
         const tmpArr = [];
 
         if(this.state.isCheckedU) {
@@ -119,7 +121,6 @@ class People extends Component {
              {
                 this.state.peopleArr.map((item, index) => 
                 (<Chip
-                    className="chip"
                     key={index}
                     label={item.name}
                     color={

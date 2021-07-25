@@ -1,24 +1,24 @@
-import React, {useState, useEffect} from 'react';
-import PropTypes from 'prop-types';
-import { makeStyles } from '@material-ui/core/styles';
-import AppBar from '@material-ui/core/AppBar';
-import Tabs from '@material-ui/core/Tabs';
-import Tab from '@material-ui/core/Tab';
-import Typography from '@material-ui/core/Typography';
-import Box from '@material-ui/core/Box';
-import People from './components/People';
-import Planets from './components/Planets';
-import TextField from '@material-ui/core/TextField';
-import { InputBase } from '@material-ui/core';
-import axios from 'axios';
+import React, { useState, useEffect } from "react";
+import PropTypes from "prop-types";
+import { makeStyles } from "@material-ui/core/styles";
+import AppBar from "@material-ui/core/AppBar";
+import Tabs from "@material-ui/core/Tabs";
+import Tab from "@material-ui/core/Tab";
+import Typography from "@material-ui/core/Typography";
+import Box from "@material-ui/core/Box";
+import People from "./components/People";
+import Planets from "./components/Planets";
+import TextField from "@material-ui/core/TextField";
+import { InputBase } from "@material-ui/core";
+import axios from "axios";
 
-import List from '@material-ui/core/List';
-import ListItem from '@material-ui/core/ListItem';
-import ListItemIcon from '@material-ui/core/ListItemIcon';
-import ListItemText from '@material-ui/core/ListItemText';
-import Divider from '@material-ui/core/Divider';
+import List from "@material-ui/core/List";
+import ListItem from "@material-ui/core/ListItem";
+import ListItemIcon from "@material-ui/core/ListItemIcon";
+import ListItemText from "@material-ui/core/ListItemText";
+import Divider from "@material-ui/core/Divider";
 
-import './App.css';
+import "./App.css";
 
 //odakle dobija props
 function TabPanel(props) {
@@ -61,69 +61,62 @@ function TabPanel(props) {
 
 //odakle dobija theme
 const useStyles = makeStyles((theme) => ({
-      root: {
-        '& > *': {
-          margin: theme.spacing(4),
-          width: '300px',
-          height: '20px',
-          color: 'black'
-        },
+  root: {
+    "& > *": {
+      margin: theme.spacing(4),
+      width: "300px",
+      height: "20px",
+      color: "black",
+    },
 
-        '&:focus': {
-          borderBottom: 'none'
-        },
+    "&:focus": {
+      borderBottom: "none",
+    },
 
-        //ne znam kako da namestim na :focus
-      },
+    //ne znam kako da namestim na :focus
+  },
 
-      // textField:{
-      //   color:'#C6CBE9',
-      //   borderBottom: '1px solid #C6CBE9'
-      // },
-
+  // textField:{
+  //   color:'#C6CBE9',
+  //   borderBottom: '1px solid #C6CBE9'
+  // },
 }));
 
 export default function App() {
   const classes = useStyles();
   const [value, setValue] = useState(0);
-  const [enteredSearch, setEnteredSearch] = useState('')
-  const [peopleArr, setPeopleArr] = useState([])
-  const [planetArr, setPlanetArr] = useState([])
-  const [allArr, setAllArr] = useState([])
-  const [searchArr, setSearchArr] = useState([])
-
-
+  const [enteredSearch, setEnteredSearch] = useState("");
+  const [peopleArr, setPeopleArr] = useState([]);
+  const [planetArr, setPlanetArr] = useState([]);
+  const [allArr, setAllArr] = useState([]);
+  const [searchArr, setSearchArr] = useState([]);
 
   useEffect(() => {
     //https://swapi.dev/api/ vraca undefined
-    axios.get('https://swapi.dev/api/people')
-    .then((res) => {
-      setPeopleArr(res.data.results)
-      console.log('App.js peopleArr', peopleArr)
-    })
+    axios.get("https://swapi.dev/api/people").then((res) => {
+      setPeopleArr(res.data.results);
+      console.log("App.js peopleArr", peopleArr);
+    });
 
-    axios.get('https://swapi.dev/api/planets')
-    .then((res) => {
-      setPlanetArr(res.data.results)
-      setAllArr([...peopleArr,...planetArr])
-      console.log('App.js allArr', allArr)
-    })
-
-    
+    axios.get("https://swapi.dev/api/planets").then((res) => {
+      setPlanetArr(res.data.results);
+      setAllArr([...peopleArr, ...planetArr]);
+      console.log("App.js allArr", allArr);
+    });
 
     // console.log('allArr',allArr) // ne radi jer setState asynch
-  }, [])
+  }, []);
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
 
   const searchChangeHandler = (e) => {
-    setEnteredSearch(e.target.value)
+    setEnteredSearch(e.target.value);
     //iz nekog razloga deselektuje tab sa navbara
 
-    console.log('allArr',allArr)
-    const tmpArr = []
+    console.log("allArr", allArr);
+    const tmpArr = [];
 
     // if(e.target.value === '') {
     //   setSearchArr(peopleArr)
@@ -131,68 +124,62 @@ export default function App() {
 
     //allArr radi samo kad stavim jedan pa drugi iz nekog razloga
     peopleArr.filter((item) => {
-      if(item.name.toLowerCase().includes(enteredSearch.toLowerCase())) {
-        tmpArr.push(item)
+      if (item.name.toLowerCase().includes(enteredSearch.toLowerCase())) {
+        tmpArr.push(item);
       }
-      setSearchArr(tmpArr)
-      console.log(searchArr)
-    })
-  }
-
+      setSearchArr(tmpArr);
+      console.log(searchArr);
+    });
+  };
 
   return (
     <div>
       <AppBar position="static">
-        <Tabs value={value} onChange={handleChange} aria-label="simple tabs example">
+        <Tabs
+          value={value}
+          onChange={handleChange}
+          aria-label="simple tabs example"
+        >
           <Tab label="People" />
           <Tab label="Planets" />
-          
         </Tabs>
-        
-        
       </AppBar>
       <div className="searchContainer">
         <form className={classes.root}>
-            {/* zbog InputBase cvrci nesto */}
-              <TextField
-              style={{
-                margin: '15px 0 0 50px',
-              }} 
-              placeholder="Search"
-              variant="standard"
-              value={enteredSearch}
-              onChange={searchChangeHandler}
-              // opaljuje vise nego sto treba a na => ne radi
-              className={classes.textField}
-              />
-          </form>
-          <div className="list">
+          {/* zbog InputBase cvrci nesto */}
+          <TextField
+            style={{
+              margin: "15px 0 0 50px",
+            }}
+            placeholder="Search"
+            variant="standard"
+            value={enteredSearch}
+            onChange={searchChangeHandler}
+            // opaljuje vise nego sto treba a na => ne radi
+            className={classes.textField}
+          />
+        </form>
+        <div className="list">
           <List component="nav">
-            {searchArr.map((item) =>
+            {searchArr.map((item) => (
               <ListItem button>
                 <ListItemText primary={item.name} />
               </ListItem>
-              
-            )}
+            ))}
           </List>
         </div>
       </div>
 
-        {/* <form className={classes.root}>
+      {/* <form className={classes.root}>
             <TextField className="searchBar" id="standard-basic" variant="filled" inputProps={{className: classes.textField}
             } />
           </form> */}
       <TabPanel value={value} index={0}>
-        <People/>
+        <People />
       </TabPanel>
       <TabPanel value={value} index={1}>
-        <Planets/>
+        <Planets />
       </TabPanel>
-
-      
-          
-      
-      
     </div>
   );
 }
