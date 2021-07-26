@@ -4,7 +4,6 @@ import { makeStyles } from "@material-ui/core/styles";
 import AppBar from "@material-ui/core/AppBar";
 import Tabs from "@material-ui/core/Tabs";
 import Tab from "@material-ui/core/Tab";
-import Typography from "@material-ui/core/Typography";
 import Box from "@material-ui/core/Box";
 import People from "./components/People";
 import Planets from "./components/Planets";
@@ -20,19 +19,11 @@ import Divider from "@material-ui/core/Divider";
 
 import "./App.css";
 
-//odakle dobija props
+//odakle dobija prop??
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
 
-  return (
-    <div>
-      {value === index && (
-        <Box p={8}>
-          <Typography>{children}</Typography>
-        </Box>
-      )}
-    </div>
-  );
+  return <div>{value === index && <Box p={5}>{children}</Box>}</div>; //box je kao div
 }
 
 // TabPanel.propTypes = {
@@ -59,7 +50,7 @@ function TabPanel(props) {
 //   }
 // },
 
-//odakle dobija theme
+//odakle dobija theme??
 const useStyles = makeStyles((theme) => ({
   root: {
     "& > *": {
@@ -76,9 +67,9 @@ const useStyles = makeStyles((theme) => ({
     //ne znam kako da namestim na :focus
   },
 
-  // textField:{
-  //   color:'#C6CBE9',
-  //   borderBottom: '1px solid #C6CBE9'
+  // textField: {
+  //   color: "#C6CBE9",
+  //   borderBottom: "1px solid #C6CBE9",
   // },
 }));
 
@@ -93,20 +84,23 @@ export default function App() {
 
   useEffect(() => {
     //https://swapi.dev/api/ vraca undefined
-    axios.get("https://swapi.dev/api/people").then((res) => {
-      setPeopleArr(res.data.results);
-      console.log("App.js peopleArr", peopleArr);
-    });
-
-    axios.get("https://swapi.dev/api/planets").then((res) => {
-      setPlanetArr(res.data.results);
-      setAllArr([...peopleArr, ...planetArr]);
-      console.log("App.js allArr", allArr);
-    });
-
-    // console.log('allArr',allArr) // ne radi jer setState asynch
+    axios
+      .get("https://swapi.dev/api/people")
+      .then((res) => {
+        setPeopleArr(res.data.results);
+      })
+      .then(
+        axios
+          .get("https://swapi.dev/api/planets")
+          .then((res) => {
+            setPlanetArr(res.data.results);
+          })
+          .then(setAllArr([...peopleArr, ...planetArr]))
+          .then(console.log("allArr", allArr))
+      );
   }, []);
 
+  // promena taba
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
@@ -115,7 +109,7 @@ export default function App() {
     setEnteredSearch(e.target.value);
     //iz nekog razloga deselektuje tab sa navbara
 
-    console.log("allArr", allArr);
+    // console.log("allArr", allArr);
     const tmpArr = [];
 
     // if(e.target.value === '') {
@@ -128,22 +122,24 @@ export default function App() {
         tmpArr.push(item);
       }
       setSearchArr(tmpArr);
-      console.log(searchArr);
+      // console.log(searchArr);
     });
   };
 
   return (
     <div>
-      <AppBar position="static">
-        <Tabs
-          value={value}
-          onChange={handleChange}
-          aria-label="simple tabs example"
-        >
+      <AppBar position="sticky">
+        <Tabs value={value} onChange={handleChange}>
           <Tab label="People" />
           <Tab label="Planets" />
         </Tabs>
       </AppBar>
+      <TabPanel value={value} index={0}>
+        <People />
+      </TabPanel>
+      <TabPanel value={value} index={1}>
+        <Planets />
+      </TabPanel>
       <div className="searchContainer">
         <form className={classes.root}>
           {/* zbog InputBase cvrci nesto */}
@@ -174,12 +170,6 @@ export default function App() {
             <TextField className="searchBar" id="standard-basic" variant="filled" inputProps={{className: classes.textField}
             } />
           </form> */}
-      <TabPanel value={value} index={0}>
-        <People />
-      </TabPanel>
-      <TabPanel value={value} index={1}>
-        <Planets />
-      </TabPanel>
     </div>
   );
 }
