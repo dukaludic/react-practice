@@ -1,0 +1,25 @@
+.navlist {
+  list-style-type: none;
+  display: flex;
+}
+
+.navlist li {
+  text-decoration: none;
+}
+
+.topicContainer {
+  margin-left: 50px
+}
+
+.topic {
+  text-transform: capitalize;
+  margin-bottom: 10px;
+}
+
+.formContainer {
+  margin: 50px;
+}
+
+.formContainer label {
+  margin-right: 20px;
+}
