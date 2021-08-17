@@ -79,25 +79,22 @@ export default function App() {
   const [enteredSearch, setEnteredSearch] = useState("");
   const [peopleArr, setPeopleArr] = useState([]);
   const [planetArr, setPlanetArr] = useState([]);
-  const [allArr, setAllArr] = useState([]);
+  const [allArr, setAllArr] = useState({ name: "luka" }, { name: "rados" });
   const [searchArr, setSearchArr] = useState([]);
 
   useEffect(() => {
     //https://swapi.dev/api/ vraca undefined
-    axios
-      .get("https://swapi.dev/api/people")
-      .then((res) => {
-        setPeopleArr(res.data.results);
-      })
-      .then(
-        axios
-          .get("https://swapi.dev/api/planets")
-          .then((res) => {
-            setPlanetArr(res.data.results);
-          })
-          .then(setAllArr([...peopleArr, ...planetArr]))
-          .then(console.log("allArr", allArr))
-      );
+    axios.get("https://swapi.dev/api/people").then((resPe) => {
+      setPeopleArr(resPe.data.results);
+      axios.get("https://swapi.dev/api/planets").then((resPl) => {
+        // setPlanetArr(resPl.data.results);
+        const tmpArr = [];
+        tmpArr.push(resPe.data.results);
+        tmpArr.push(resPl.data.results);
+        console.log(tmpArr);
+        // setAllArr(tmpArr);
+      });
+    });
   }, []);
 
   // promena taba
@@ -117,7 +114,8 @@ export default function App() {
     // }
 
     //allArr radi samo kad stavim jedan pa drugi iz nekog razloga
-    peopleArr.filter((item) => {
+    allArr.filter((item) => {
+      console.log("search item", item);
       if (item.name.toLowerCase().includes(enteredSearch.toLowerCase())) {
         tmpArr.push(item);
       }
