@@ -52,29 +52,248 @@ const restaurant = {
   },
 };
 
-// Property names
-const properties = Object.keys(openingHours);
-console.log(properties);
+// // Property names
+// const properties = Object.keys(openingHours);
+// console.log(properties);
 
-let openStr = `We are open on ${properties.length} days: `;
+// let openStr = `We are open on ${properties.length} days: `;
 
-for (const day of properties) {
-  openStr += `${day}, `;
-}
+// for (const day of properties) {
+//   openStr += `${day}, `;
+// }
 
-console.log(openStr);
+// console.log(openStr);
 
-// Property values
-const values = Object.values(openingHours);
-console.log(values);
+// // Property values
+// const values = Object.values(openingHours);
+// console.log(values);
 
-// entire object
-const entries = Object.entries(openingHours);
-// console.log(entries);
+// // entire object
+// const entries = Object.entries(openingHours);
+// // console.log(entries);
 
-for (const [key, { open, close }] of entries) {
-  console.log(`On ${key} we open at ${open} and close at ${close}`);
-}
+// for (const [key, { open, close }] of entries) {
+//   console.log(`On ${key} we open at ${open} and close at ${close}`);
+// }
+
+// Coding challenge #1
+
+// const game = {
+//   team1: "Bayern Munich",
+//   team2: "Borrussia Dortmund",
+//   players: [
+//     [
+//       "Neuer",
+//       "Pavard",
+//       "Martinez",
+//       "Alaba",
+//       "Davies",
+//       "Kimmich",
+//       "Goretzka",
+//       "Coman",
+//       "Muller",
+//       "Gnarby",
+//       "Lewandowski",
+//     ],
+//     [
+//       "Burki",
+//       "Schulz",
+//       "Hummels",
+//       "Akanji",
+//       "Hakimi",
+//       "Weigl",
+//       "Witsel",
+//       "Hazard",
+//       "Brandt",
+//       "Sancho",
+//       "Gotze",
+//     ],
+//   ],
+//   score: "4:0",
+//   scored: ["Lewandowski", "Gnarby", "Lewandowski", "Hummels"],
+//   date: "Nov 9th, 2037",
+//   odds: {
+//     team1: 1.33,
+//     x: 3.25,
+//     team2: 6.5,
+//   },
+// };
+
+// const question = new Map([
+//   ["question", "What is the best programming language?"],
+//   [1, "C"],
+//   [2, "Java"],
+//   [3, "Javascript"],
+//   ["correct", 3],
+//   [true, "Correct"],
+//   [false, "Try again"],
+// ]);
+
+// //Convert object to map
+// console.log(Object.entries(openingHours));
+// const hoursMap = new Map(Object.entries(openingHours));
+
+// console.log(hoursMap);
+
+// // Quizz app
+// console.log(question.get("question"));
+// for (const [key, value] of question) {
+//   if (typeof key === "number") console.log(`Answer ${key}: ${value}`);
+// }
+
+// const answer = Number(prompt("Your answer"));
+// // question.get("correct") === answer
+// //   ? console.log(question.get(true))
+// //   : console.log(question.get(false));
+
+// console.log(question.get(question.get("correct") === answer));
+
+// // Conver map to array
+// console.log([...question]);
+// console.log([...question.entries()]);
+// console.log(question.keys());
+// console.log(question.values());
+// const rest = new Map();
+
+// rest.set("name", "Classico Italiano");
+// rest.set(1, "Firence, Italy");
+// console.log(rest.set(2, "Lisbon, Portugal"));
+
+// rest
+//   .set("categories", ["Italian", "Pizzeria", "Vegetarian", "Organic"])
+//   .set("open", 11)
+//   .set("close", 23)
+//   .set(true, "We are open")
+//   .set(false, "We are closed");
+
+// console.log(rest.get("name"));
+// // console.log(rest.get(true));
+
+// const time = 8;
+// console.log(rest.get(time > rest.get("open") && time < rest.get("close")));
+
+// console.log(rest.has("categories"));
+// rest.delete(2); // 2 is key
+// // rest.clear();
+// const arr = [1, 2];
+// rest.set(arr, "Test");
+
+// rest.set(document.querySelector("h1"), "Heading");
+// console.log(rest);
+// console.log(rest.size);
+
+// console.log(rest.get(arr)); // Undefined if [1,2]
+
+// const ordersSet = new Set([
+//   "Pasta",
+//   "Pizza",
+//   "Pizza",
+//   "Risotto",
+//   "Pasta",
+//   "Pizza",
+// ]);
+// console.log(ordersSet);
+
+// console.log(new Set("Jonas"));
+
+// console.log(ordersSet.size);
+// console.log(ordersSet.has("Bread"));
+// console.log(ordersSet.has("Pizza"));
+// ordersSet.add("Garlic Bread");
+// ordersSet.add("Garlic Bread");
+// ordersSet.delete("Risotto");
+// // ordersSet.clear();
+// console.log(ordersSet);
+
+// for (const order of ordersSet) console.log(order);
+
+// // Example
+// const staff = ["Waiter", "Chef", "Waiter", "Manager", "Chef", "Waiter"];
+// const staffUnique = [...new Set(staff)]; // makes an array
+// console.log(
+//   new Set(["Waiter", "Chef", "Waiter", "Manager", "Chef", "Waiter"].size)
+// );
+
+// console.log(new Set("jonassschmedtmann").size);
+
+// Challenge 2
+
+// const { scored } = game;
+
+// for (let [i, j] of scored.entries()) {
+//   console.log(`Goal ${i}: ${j}`);
+// }
+
+// let averageOdd = 0;
+// const odds = Object.values(game.odds);
+// let sum = 0;
+
+// for (let item of odds) {
+//   sum += item;
+// }
+// averageOdd = sum / odds.length;
+// console.log(averageOdd);
+
+// for (let [odd, team] of Object.entries(game.odds)) {
+//   let str = odd === "x" ? `draw` : `victory`;
+
+//   console.log(`Odds of ${str} by ${team}: ${odd}`);
+// }
+
+// const scorers = {};
+// // console.log(sco);
+
+// for (let i of scored) {
+//   scorers[i] ? scorers[i]++ : (scorers[i] = 1);
+// }
+
+// console.log(scorers);
+
+// 1. Loop over the game.scored array and print each player name to the console, along with the goal number (Example: "Goal 1: Lewandowski")
+// 2. Use a loop to calculate the average odd and log it to the console (We already studied how to calculate averages, you can go check if you don't remember)
+// 3. Print the 3 odds to the console, but in a nice formatted way, exaclty like this:
+//       Odd of victory Bayern Munich: 1.33
+//       Odd of draw: 3.25
+//       Odd of victory Borrussia Dortmund: 6.5
+// Get the team names directly from the game object, don't hardcode them (except for "draw"). HINT: Note how the odds and the game objects have the same property names 😉
+// BONUS: Create an object called 'scorers' which contains the names of the players who scored as properties, and the number of goals as the value. In this game, it will look like this:
+//       {
+//         Gnarby: 1,
+//         Hummels: 1,
+//         Lewandowski: 2
+//       }
+
+// const [players1, players2] = game.players;
+// const [gk, ...fieldPlayers] = players1;
+// const allPlayers = [...players1, ...players2];
+// const players1Final = [...players1, "Thiago", "Coutinho", "Perisic"];
+
+// const {
+//   odds: { team1, x: draw, team2 },
+// } = game;
+// console.log(team1, draw, team2, "aasdf");
+
+// function printGoals(...goals) {
+//   console.log(goals);
+//   console.log(`${goals.length} goals were scored`);
+// }
+
+// team1 < team2 && console.log("team1 is more likely to win");
+
+// team1 > team2 && console.log("team2 is more likely to win");
+
+// // const { scored } = game;
+// // console.log(scored, "scored");
+// printGoals(...game.scored);
+
+// console.log(players1Final);
+// 1. Create one player array for each team (variables 'players1' and 'players2')
+// 2. The first player in any player array is the goalkeeper and the others are field players. For Bayern Munich (team 1) create one variable ('gk') with the goalkeeper's name, and one array ('fieldPlayers') with all the remaining 10 field players
+// 3. Create an array 'allPlayers' containing all players of both teams (22 players)
+// 4. During the game, Bayern Munich (team 1) used 3 substitute players. So create a new array ('players1Final') containing all the original team1 players plus 'Thiago', 'Coutinho' and 'Perisic'
+// 5. Based on the game.odds object, create one variable for each odd (called 'team1', 'draw' and 'team2')
+// 6. Write a function ('printGoals') that receives an arbitrary number of player names (NOT an array) and prints each of them to the console, along with the number of goals that were scored in total (number of player names passed in)
+// 7. The team with the lower odd is more likely to win. Print to the console which team is more likely to win, WITHOUT using an if/else statement or the ternary operator.
 
 // //OPTIONAL chaining 2020 //////////////////////
 // if (restaurant.openingHours && restaurant.openingHours.fri.open) {
