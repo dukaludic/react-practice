@@ -7,6 +7,8 @@ import {
   Link
 } from "react-router-dom";
 import GlobalContextProvider from "./components/GlobalContext"
+import Cart from "./components/Cart";
+import { AppContext } from "./components/Context";
 
 function App() {
   return (
@@ -14,7 +16,7 @@ function App() {
       <GlobalContextProvider>
       <Router>
         <div>
-          <nav>
+          <nav className="navbar">
             <ul>
               <li>
                 <Link to="/products">Products</Link>
@@ -30,7 +32,7 @@ function App() {
             <Products/>
           </Route>
           <Route path='/cart' exact>
-            Cart
+            <Cart/>
           </Route>
         </Switch>
       </Router>
