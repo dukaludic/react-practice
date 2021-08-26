@@ -5,6 +5,9 @@ import Products from "./components/Products";
 import Cart from "./components/Cart";
 import { AppContext } from "./context/AppContext";
 import Profile from "./components/Profile";
+import Dashboard from "./components/Dashboard";
+import PostContextProvider from "./context/PostContext";
+import UsersContextProvider from "./context/UsersContext";
 
 let tmpCart = [];
 
@@ -86,6 +89,9 @@ function App() {
       <div className="App">
         <ul className="appList">
           <li>
+            <Link to="/dashboard">Dashboard</Link>
+          </li>
+          <li>
             <Link to="/profile">Profile</Link>
           </li>
           <li>
@@ -96,27 +102,34 @@ function App() {
           </li>
         </ul>
         <Switch>
-          <AppContext.Provider
-            value={{
-              clearOrders,
-              cart,
-              tmpCart,
-              setCart,
-              setProducts,
-              products,
-              productClickHandler,
-            }}
-          >
-            <Route path="/products">
-              <Products />
-            </Route>
-            <Route path="/cart">
-              <Cart />
-            </Route>
-            <Route exact path="/profile">
-              <Profile />
-            </Route>
-          </AppContext.Provider>
+          <PostContextProvider>
+            <UsersContextProvider>
+              <AppContext.Provider
+                value={{
+                  clearOrders,
+                  cart,
+                  tmpCart,
+                  setCart,
+                  setProducts,
+                  products,
+                  productClickHandler,
+                }}
+              >
+                <Route path="/products">
+                  <Products />
+                </Route>
+                <Route path="/cart">
+                  <Cart />
+                </Route>
+                <Route exact path="/profile">
+                  <Profile />
+                </Route>
+                <Route exact path="/dashboard">
+                  <Dashboard />
+                </Route>
+              </AppContext.Provider>
+            </UsersContextProvider>
+          </PostContextProvider>
         </Switch>
       </div>
     </Router>
