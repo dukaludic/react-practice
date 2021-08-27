@@ -76,7 +76,7 @@ function App() {
   const productClickHandler = (id) => {
     const tmpState = products;
     const product = products.find((item) => item.id === id);
-    product.isSelected = product.isSelected ? false : true;
+    // product.isSelected = product.isSelected ? false : true;
     product.quantity++;
     //FIND ne pravi novu varujablu vec koristi staru
     setProducts([...tmpState]);
@@ -92,7 +92,7 @@ function App() {
             <Link to="/dashboard">Dashboard</Link>
           </li>
           <li>
-            <Link to="/profile">Profile</Link>
+            <Link to="/users/u1">Profile</Link>
           </li>
           <li>
             <Link to="/products">Products</Link>
@@ -121,7 +121,7 @@ function App() {
                 <Route path="/cart">
                   <Cart />
                 </Route>
-                <Route exact path="/profile">
+                <Route exact path="/users/u1">
                   <Profile />
                 </Route>
                 <Route exact path="/dashboard">

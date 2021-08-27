@@ -1,14 +1,18 @@
 import { useContext, useEffect, useState } from "react";
 import { AppContext } from "../context/AppContext";
+import { PostContext } from "../context/PostContext";
 import { UsersContext } from "../context/UsersContext";
 
+let time;
+
 const Cart = () => {
-  const { cart, clearOrders } = useContext(AppContext);
+  const { cart, setCart, clearOrders } = useContext(AppContext);
+  const { posts } = useContext(PostContext);
   const { users } = useContext(UsersContext);
 
   const [message, setMessage] = useState("");
 
-  let thisUser;
+  let [loggedUser] = users.filter((item) => item.id === "u1");
 
   const calculateTotal = () => {
     let sum = 0;
@@ -19,11 +23,32 @@ const Cart = () => {
   };
 
   const onCheckout = () => {
-    thisUser = users.find((item) => item.id === "u1");
-    console.log(thisUser, "thisUser");
-    thisUser.orders.push(cart);
+    console.log(loggedUser, "loggedUser");
+    console.log(cart, "prvo");
+    // const cartDeconstruct = { ...cart };
+    // for (let i = 0; i < cartDeconstruct.length; i++) {
+    //   loggedUser.orders.push(cartDeconstruct[i]);
+    // }
+    loggedUser.orders.products.push(cart);
+    time = new Date().toString();
+    loggedUser.orders.time.push(time);
+    console.log(loggedUser.orders, "loggedUser.orders");
+    console.log(cart, "CART");
     clearOrders();
     setMessage("Thank you for purchasing");
+
+    const newPost = {
+      id: `post${posts.length + 1}`,
+      userId: loggedUser.id,
+      userName: `${loggedUser.firstName} ${loggedUser.lastName}`,
+      time: time,
+      postContent: "Something",
+      orders: {
+        products: cart,
+        time: time,
+      },
+    };
+    posts.push(newPost);
   };
 
   return (
