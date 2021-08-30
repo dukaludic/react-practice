@@ -8,6 +8,7 @@ const PostContextProvider = (props) => {
       id: "post1",
       userId: "u1",
       userName: "Luka Dudic",
+      picture: "",
       time: "Fri Aug 27 2021 02:54:00 GMT+0200 (Central European Summer Time)",
       postContent:
         "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",

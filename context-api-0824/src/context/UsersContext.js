@@ -8,6 +8,7 @@ const UsersContextProvider = (props) => {
       id: "u1",
       firstName: "Luka",
       lastName: "Dudic",
+      email: "dukaludic@gmail.com",
       orders: { products: [], time: [] },
       friends: ["u2"],
       loggedIn: true,

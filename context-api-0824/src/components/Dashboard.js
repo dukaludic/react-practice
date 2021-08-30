@@ -39,30 +39,33 @@ const Dashboard = () => {
       <Router basename="users">
         <Switch>
           <Route path="/dashboard">
-            {posts.map((item) => (
-              <div className="postContainer">
-                <div className="userDetails">
-                  <div className="postImg"></div>
-                  <div>
-                    <h3 onClick={() => setClickedUser(item.userId)}>
-                      <Link to={`/${item.userId}`}>{item.userName}</Link>
-                    </h3>
-                    <p>{item.time}</p>
-                    <p>
-                      {item.userId === users[0].id
-                        ? "You"
-                        : users[0].friends.includes(item.userId)
-                        ? "Friends"
-                        : "Not a friend"}
-                    </p>
+            {posts
+              .slice(0)
+              .reverse()
+              .map((item) => (
+                <div className="postContainer">
+                  <div className="userDetails">
+                    <div className="postImg"></div>
+                    <div>
+                      <h3 onClick={() => setClickedUser(item.userId)}>
+                        <Link to={`/${item.userId}`}>{item.userName}</Link>
+                      </h3>
+                      <p>{item.time}</p>
+                      <p>
+                        {item.userId === users[0].id
+                          ? "You"
+                          : users[0].friends.includes(item.userId)
+                          ? "Friends"
+                          : "Not a friend"}
+                      </p>
+                    </div>
                   </div>
+                  <Post
+                    content={item.postContent}
+                    products={item.orders.products}
+                  />
                 </div>
-                <Post
-                  content={item.postContent}
-                  products={item.orders.products}
-                />
-              </div>
-            ))}
+              ))}
             {/* {posts.map((item) => (
               <div className="postContainer">
                 <div className="userDetails">

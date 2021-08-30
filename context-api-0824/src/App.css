@@ -98,8 +98,14 @@
 
 .profileImg {
   background-color: #ddd;
-  width: 130px;
-  height: 130px;
+  width: 96px;
+  height: 96px;
+  border-radius: 50%;
+}
+
+.profileImg img {
+  object-fit: cover;
+  border-radius: 50%;
 }
 
 .profileContainer {
@@ -142,4 +148,35 @@
 
 .checkoutBtn {
   margin-left: 10px;
+}
+
+.logoutBtn {
+  background: #ddd;
+  height: 100%;
+  width: 100%;
+}
+
+.logoutBtn:hover {
+  background: #ccc;
+}
+
+.cartForm {
+  display: flex;
+  flex-direction: column;
+}
+
+.cartForm textarea {
+  height: 100px;
+  padding: 10px;
+  border-color: #ddd;
+  border-style: solid;
+}
+
+.cartForm textarea:focus {
+  outline: none;
+}
+
+.userDetails a {
+  color: #222;
+  text-decoration: none;
 }

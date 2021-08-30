@@ -1,3 +1,4 @@
+import { useAuth0 } from "@auth0/auth0-react";
 import React, { useEffect, useContext, useState, useCallback } from "react";
 import { UsersContext } from "../context/UsersContext";
 import ProductItem from "./ProductItem";
@@ -6,7 +7,12 @@ const queryParams = new URLSearchParams(window.location.search);
 // let thisUser = queryParams.get("users");
 
 const Profile = (props) => {
+  const { user } = useAuth0();
+  const { picture, email } = user;
   const { users } = useContext(UsersContext);
+
+  console.log(picture, "PICTURE");
+
   //Force update
   const [, updateState] = useState();
   const forceUpdate = useCallback(() => updateState({}), []);
@@ -16,8 +22,9 @@ const Profile = (props) => {
     return cb();
   };
 
-  let [loggedUser] = users.filter((item) => item.id === "u1");
+  let [loggedUser] = users.filter((item) => item.email === email);
   let thisUser = loggedUser;
+  thisUser.picture = picture;
 
   const addRemove = () => {
     const [friend] = loggedUser.friends.filter((item) => item === thisUser.id);
@@ -49,9 +56,14 @@ const Profile = (props) => {
 
   return (
     <div>
-      <h1>{`${thisUser.firstName} ${thisUser.lastName}`}</h1>
+      <h1
+        style={{ margin: "0" }}
+      >{`${thisUser.firstName} ${thisUser.lastName}`}</h1>
+      <p style={{ marginTop: "0" }}>{thisUser.email}</p>
       <div className="profileContainer">
-        <div className="profileImg"></div>
+        <div className="profileImg">
+          <img src={thisUser.picture} />
+        </div>
       </div>
       {thisUser.id !== loggedUser.id &&
         (loggedUser.friends.includes(thisUser.id) ? (
@@ -68,7 +80,7 @@ const Profile = (props) => {
       <div>
         {runCallback(() => {
           const row = [];
-          for (var i = thisUser.orders.products.length - 1; i > -1; i--) {
+          for (let i = thisUser.orders.products.length - 1; i > -1; i--) {
             row.push(<h4>{thisUser.orders.time[i].toString()}</h4>);
             row.push(
               thisUser &&
